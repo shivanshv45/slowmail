@@ -13,7 +13,7 @@ export function Header({ className }: { className?: string }) {
 
   return (
     <header className={cn("fixed top-6 left-0 right-0 z-50 flex justify-center w-full px-4 pointer-events-none", className)}>
-      <div className="flex items-center justify-between w-full max-w-2xl px-6 py-3 bg-creamy/40 backdrop-blur-md border border-ink/10 rounded-full shadow-sm pointer-events-auto transition-all hover:bg-creamy/60">
+      <div className="flex items-center justify-between w-full max-w-[850px] px-6 py-3 bg-creamy/40 backdrop-blur-md border border-ink/10 rounded-full shadow-sm pointer-events-auto transition-all hover:bg-creamy/60">
         <Link href="/" className="font-serif text-xl font-bold tracking-tight text-ink">
           SlowMail
         </Link>
