@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FDFCFB;
+  --foreground: #2D2A26;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-handwriting: var(--font-caveat), cursive;
+  
+  --color-creamy: #FDFCFB;
+  --color-parchment: #F4F7F9;
+  --color-ink: #2D2A26;
+  --color-stamp-red: #D94A38;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}

@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  name           String
+  password       String
+  city           String   @default("")
+  country        String   @default("")
+  bio            String   @default("")
+  isPublic       Boolean  @default(false)
+  onboarded      Boolean  @default(false)
+  dailyLetterCount Int    @default(0)
+  lastLetterDate String   @default("")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  sentLetters     Letter[] @relation("SentLetters")
+  receivedLetters Letter[] @relation("ReceivedLetters")
+
+  sentRequests     Connection[] @relation("SentRequests")
+  receivedRequests Connection[] @relation("ReceivedRequests")
+}
+
+model Letter {
+  id              String   @id @default(cuid())
+  content         String
+  senderCity      String
+  receiverCity    String
+  senderName      String
+  signOff         String   @default("")
+  status          String   @default("IN_TRANSIT")
+  dispatchedAt    DateTime @default(now())
+  deliveryEta     DateTime
+  deliveredAt     DateTime?
+  openedAt        DateTime?
+  stationeryStyle String   @default("classic-cream")
+  isFutureLetter  Boolean  @default(false)
+  scheduledDate   DateTime?
+
+  senderId   String
+  sender     User   @relation("SentLetters", fields: [senderId], references: [id])
+
+  receiverId String
+  receiver   User   @relation("ReceivedLetters", fields: [receiverId], references: [id])
+
+  @@index([receiverId, status])
+  @@index([senderId])
+}
+
+model Connection {
+  id        String   @id @default(cuid())
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+
+  requesterId String
+  requester   User   @relation("SentRequests", fields: [requesterId], references: [id])
+
+  addresseeId String
+  addressee   User   @relation("ReceivedRequests", fields: [addresseeId], references: [id])
+
+  @@unique([requesterId, addresseeId])
+}
